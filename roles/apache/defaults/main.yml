@@ -1,2 +1,29 @@
 ---
 # defaults file for apache
+vhosts:
+  - server_name: example1.dev
+    server_alias: www.example1.dev
+    server_admin: webmaster@example1.dev
+    listen_ip: '*'
+    listen_port: 80
+    log_level: warn
+    docroot: /var/www/html/example1.dev/public_html
+  - server_name: example2.dev
+    server_alias: www.example2.dev
+    server_admin: webmaster@example2.dev
+    listen_ip: '*'
+    listen_port: 80
+    log_level: warn
+    docroot: /var/www/html/example2.dev/public_html
+  - server_name: example3.dev
+    server_alias: www.example3.dev
+    server_admin: webmaster@example3.dev
+    listen_ip: '*'
+    listen_port: 80
+    log_level: warn
+    docroot: /var/www/html/example3.dev/public_html
+
+vhosts_enabled:
+  - server_name: example1.dev
+  - server_name: example2.dev
+  - server_name: example3.dev

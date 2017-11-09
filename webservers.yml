@@ -1,0 +1,8 @@
+# apache.yml
+---
+- hosts: webservers
+  become: true
+  roles:
+    - apt
+    - apache
+    - php

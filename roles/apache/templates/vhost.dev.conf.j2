@@ -1,0 +1,18 @@
+<VirtualHost {{ item.listen_ip }}:{{ item.listen_port }}>
+        ServerName {{ item.server_name }}
+        ServerAlias {{ item.server_alias }}
+        ServerAdmin {{ item.server_admin }}
+        DocumentRoot /var/www/{{ item.server_name }}/public_html
+
+        ErrorLog /var/www/{{ item.server_name }}/error.log
+        LogLevel {{ item.log_level }}
+        CustomLog /var/www/{{ item.server_name }}/access.log combined
+</VirtualHost>
+<Directory "{{ item.docroot }}">
+        AllowOverride All
+        
+        Order allow,deny
+        Allow from all
+</Directory>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
