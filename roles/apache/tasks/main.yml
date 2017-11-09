@@ -58,3 +58,10 @@
 - name: Add index.html files to vhosts docroots
   template: src=index.html.j2 dest="/var/www/{{ item.server_name }}/public_html/index.html" owner=root group=root mode=0644
   with_items: "{{ vhosts }}"
+
+- name: Disable default vhost
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  notify: restart apache
+  when: disable_default_vhost

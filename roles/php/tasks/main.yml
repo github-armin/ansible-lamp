@@ -1,58 +1,60 @@
 ---
 # tasks file for php
 
-- name: Adding PHP 7.1 repo to apt
-  apt_repository:
-    repo: 'ppa:ondrej/php'
-    state: present
-    update_cache: no
+# - name: Adding PHP repo to apt
+#   apt_repository:
+#     repo: "ppa:ondrej/php"
+#     state: present
 
-- name: Install PHP 5.6
+- name: Installing PHP 5.6
   apt: name=php5.6 state=present
   notify: restart apache
+  when: installphp56
 
-- name: Install PHP 5.6 libraries
+- name: Installing PHP 5.6 libraries
   apt: name={{ item }} state=present
   with_items: "{{ php56libraries }}"
   notify: restart apache
+  when: installphp56
 
-- name: Install PHP 7.0
+- name: Installing PHP 7.0
   apt: name=php7.0 state=present
   notify: restart apache
+  when: installphp70
 
-- name: Install PHP 7.0 libraries
+- name: Installing PHP 7.0 libraries
   apt: name={{ item }} state=present
   with_items: "{{ php70libraries }}"
   notify: restart apache
+  when: installphp70
 
-- name: Install PHP 7.1
+- name: Installing PHP 7.1
   apt: name=php7.1 state=present
   notify: restart apache
+  when: installphp71
 
-- name: Install PHP 7.1 libraries
+- name: Installing PHP 7.1 libraries
   apt: name={{ item }} state=present
   with_items: "{{ php71libraries }}"
   notify: restart apache
+  when: installphp71
 
-- name: Install PHP 7.2
+- name: Installing PHP 7.2
   apt: name=php7.2 state=present
   notify: restart apache
+  when: installphp72
 
-- name: Install PHP 7.2 libraries
+- name: Installing PHP 7.2 libraries
   apt: name={{ item }} state=present
   with_items: "{{ php72libraries }}"
   notify: restart apache
+  when: installphp72
 
-# - name: Enable apache modules
-#   apache2_module: name={{ item }} state=present
-#   with_items:
-#     - suexec
-#     - rewrite
-#     - ssl
-#     - actions
-#     - include
-#     - cgi
-#   notify: restart apache
+- name: Enable/disable PHP version
+  apache2_module: name={{ item.name }} state={{ item.state }}
+  with_items: "{{ php_version_enabled }}"
+  notify: restart apache
+
 
 
 

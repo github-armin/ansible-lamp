@@ -1,14 +1,14 @@
 [webservers]
-pi.black ansible_user=pi
-#pi.white ansible_user=pi
+do.webserver1
+do.webserver2
 
-#[webloadbalancer]
-#pi.grey ansible_user=pi
+[webloadbalancer]
+do.weblb
 
-#[galeraloadbalancer]
-#pi.orange ansible_user=pi
+[galeraloadbalancer]
+do.galeralb
 
 [galeracluster]
-pi.red ansible_user=pi
-pi.green ansible_user=pi
-pi.blue ansible_user=pi
+do.galeranode1
+do.galeranode2
+do.galeranode3

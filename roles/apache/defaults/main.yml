@@ -27,3 +27,5 @@ vhosts_enabled:
   - server_name: example1.dev
   - server_name: example2.dev
   - server_name: example3.dev
+
+disable_default_vhost: true
