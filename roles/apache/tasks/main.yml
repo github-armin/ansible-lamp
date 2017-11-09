@@ -13,6 +13,7 @@
     - libapache2-mod-fcgid
     - apache2-suexec-pristine
     - libapache2-mod-python
+    - libapache2-mod-fastcgi
   notify: restart apache
 
 - name: Enable apache modules
@@ -24,6 +25,7 @@
     - actions
     - include
     - cgi
+    - fastcgi
   notify: restart apache
 
 - name: Enable more apache modules

@@ -1,10 +1,10 @@
 ---
 # tasks file for php
 
-# - name: Adding PHP repo to apt
-#   apt_repository:
-#     repo: "ppa:ondrej/php"
-#     state: present
+- name: Adding PHP repo to apt
+  apt_repository:
+    repo: "ppa:ondrej/php"
+    state: present
 
 - name: Installing PHP 5.6
   apt: name=php5.6 state=present
@@ -53,6 +53,15 @@
 - name: Enable/disable PHP version
   apache2_module: name={{ item.name }} state={{ item.state }}
   with_items: "{{ php_version_enabled }}"
+  ignore_errors: yes
+  notify: restart apache
+
+- name: Enable related apache modules
+  apache2_module: name={{ item }} state=present
+  with_items:
+    - actions
+    - fastcgi
+    - alias
   notify: restart apache
 
 

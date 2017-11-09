@@ -1,7 +1,7 @@
 ---
 # defaults file for php
 
-installphp56: false
+installphp56: true
 php56libraries:
   - libapache2-mod-php5.6
   - libphp5.6-embed
@@ -82,7 +82,7 @@ php70libraries:
   - php7.0-xsl
   - php7.0-zip
 
-installphp71: false
+installphp71: true
 php71libraries:
   - libapache2-mod-php7.1
   - libphp7.1-embed
@@ -123,7 +123,7 @@ php71libraries:
   - php7.1-xsl
   - php7.1-zip
 
-installphp72: false
+installphp72: true
 php72libraries:
   - libapache2-mod-php7.2
   - libphp7.2-embed
@@ -164,11 +164,11 @@ php72libraries:
   - php7.2-zip
 
 php_version_enabled:
-  # - name: php5.6
-  #   state: absent
+  - name: php5.6
+    state: absent
   - name: php7.0
+    state: absent
+  - name: php7.1
     state: present
-  # - name: php7.1
-  #   state: absent
-  # - name: php7.2
-  #   state: absent
+  - name: php7.2
+    state: absent
