@@ -8,6 +8,7 @@ upstream {{ item.key }} {
 server {
   listen {{ item.value.frontend }};
   server_name {{ item.value.server_name }} {{ item.value.server_alias }};
+  proxy_set_header Host $http_host;
   location / {
     proxy_pass http://{{ item.key }};
   }
