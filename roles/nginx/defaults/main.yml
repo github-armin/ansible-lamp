@@ -10,3 +10,4 @@ sites:
   myapp:
     frontend: 80
     backend: 80
+    loadbalance_method: "least_conn;" #options: (empty-string) = round-robin, least_conn;, ip_hash;
