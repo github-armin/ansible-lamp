@@ -45,6 +45,6 @@
 - name: Modify nginx config
   lineinfile:
     path: /etc/nginx/nginx.conf
-    regexp: '^#server_names_hash_bucket_size 64;'
-    line: 'server_names_hash_bucket_size 64;'
+    regexp: '^        # server_names_hash_bucket_size 64;'
+    line: '        server_names_hash_bucket_size 64;'
   notify: restart nginx
