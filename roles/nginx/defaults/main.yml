@@ -7,7 +7,21 @@ webservers:
     hostname: "do.webserver2"
 
 sites:
-  myapp:
+  example1:
+    server_name: "example1.dev"
+    server_alias: "www.example1.dev"
+    frontend: 80
+    backend: 80
+    loadbalance_method: "least_conn;" #options: (empty-string) = round-robin, least_conn;, ip_hash;
+  example2:
+    server_name: "example2.dev"
+    server_alias: "www.example2.dev"
+    frontend: 80
+    backend: 80
+    loadbalance_method: "least_conn;" #options: (empty-string) = round-robin, least_conn;, ip_hash;
+  example3:
+    server_name: "example3.dev"
+    server_alias: "www.example3.dev"
     frontend: 80
     backend: 80
     loadbalance_method: "least_conn;" #options: (empty-string) = round-robin, least_conn;, ip_hash;

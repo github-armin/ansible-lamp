@@ -12,7 +12,7 @@
   service: name=nginx state=started enabled=yes
 
 - name: configure nginx site
-  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ item.key }} mode=0644
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ item.value.server_name }} mode=0644
   with_dict: "{{ sites }}"
   notify: restart nginx
 
@@ -27,7 +27,10 @@
   notify: restart nginx
 
 - name: activate nginx sites
-  file: src=/etc/nginx/sites-available/{{ item.key }} dest=/etc/nginx/sites-enabled/{{ item.key }} state=link
+  file:
+    src: /etc/nginx/sites-available/{{ item.value.server_name }}
+    dest: /etc/nginx/sites-enabled/{{ item.value.server_name }}
+    state: link
   with_dict: "{{ sites }}"
   notify: restart nginx
 
