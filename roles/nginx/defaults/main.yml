@@ -1,0 +1,12 @@
+---
+# defaults file for nginx
+webservers:
+  - ip: "104.131.133.21"
+    hostname: "do.webserver1"
+  - ip: "104.131.133.39"
+    hostname: "do.webserver2"
+
+sites:
+  myapp:
+    frontend: 80
+    backend: 80

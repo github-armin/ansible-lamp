@@ -1,0 +1,6 @@
+# apache.yml
+---
+- hosts: webloadbalancer
+  become: true
+  roles:
+    - nginx
