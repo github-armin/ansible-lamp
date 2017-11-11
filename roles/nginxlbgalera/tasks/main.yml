@@ -20,13 +20,13 @@
   shell: ls -1 /etc/nginx/sites-enabled
   register: active
 
-- name: deactivate default nginx site
+- name: deactivate all nginx sites
   file: path=/etc/nginx/sites-enabled/{{ item }} state=absent
   with_items: "{{ active.stdout_lines }}"
   when: item not in sites
   notify: restart nginx
 
-- name: activate nginx sites
+- name: activate enabled nginx sites
   file:
     src: /etc/nginx/sites-available/{{ item.value.server_name }}
     dest: /etc/nginx/sites-enabled/{{ item.value.server_name }}

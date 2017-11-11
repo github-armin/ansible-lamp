@@ -1,0 +1,30 @@
+---
+# tasks file for galeranode
+
+- name: Adding an apt key by id from a keyserver
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 44B7345738EBDE52594DAD80D669017EBC19DDBA
+
+- name: Updating APT package manager repositories cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Adding galera apt repository:
+    apt_repository:
+      repo: "deb [arch=amd64,i386] http://releases.galeracluster.com/ubuntu/ xenial main"
+      state: present
+
+- name: Updating APT package manager repositories cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install Galera, MySQL, and rsync
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - galera-3
+    - galera-arbitrator-3
+    - mysql-wsrep-5.6
+    - rsync
