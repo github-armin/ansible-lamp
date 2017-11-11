@@ -3,4 +3,4 @@
 - hosts: webloadbalancer
   become: true
   roles:
-    - nginx
+    - nginxweb

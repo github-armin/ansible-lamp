@@ -1,0 +1,6 @@
+# apache.yml
+---
+- hosts: galeraloadbalancer
+  become: true
+  roles:
+    - nginxgalera
