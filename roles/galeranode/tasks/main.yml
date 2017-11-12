@@ -52,6 +52,12 @@
     name: mysql
     state: stopped
 
+- name: Make all nodes safe to bootstrap
+  replace:
+    dest: /var/lib/mysql/grastate.dat
+    regexp: '^safe_to_bootstrap: 0'
+    replace: 'safe_to_bootstrap: 1'
+
 - name: Start first Galera Node
   command: sudo galera_new_cluster
   when: inventory_hostname == "do.galeranode3"
