@@ -52,5 +52,12 @@
     name: mysql
     state: stopped
 
-# - name: Start first Galera Node
-#   command: sudo galera_new_cluster
+- name: Start first Galera Node
+  command: sudo galera_new_cluster
+  when: inventory_hostname == "do.galeranode3"
+
+- name: Start remaining Galera Nodes
+  service:
+    name: mysql
+    state: started
+  when: inventory_hostname != "do.galeranode3"
