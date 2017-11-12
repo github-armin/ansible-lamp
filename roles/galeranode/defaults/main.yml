@@ -4,8 +4,11 @@ wsrep_cluster_name: galera_cluster
 
 galeranodes:
   - name: galeranode1
-    ip: do.galeranode1
+    hostname: do.galeranode1
+    ip: 107.170.223.121
   - name: galeranode2
-    ip: do.galeranode2
-  - name: galeranode2
-    ip: do.galeranode2
+    hostname: do.galeranode2
+    ip: 104.131.136.125
+  - name: galeranode3
+    hostname: do.galeranode3
+    ip: 104.131.136.179

@@ -37,7 +37,7 @@
 - name: Add ips of Galera Nodes to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: "{{ item.ip }} {{ item.name }}"
+    line: "{{ item.ip }} {{ item.hostname }}"
   with_items: "{{ galeranodes }}"
   state: present
 
