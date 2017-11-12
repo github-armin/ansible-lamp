@@ -10,7 +10,7 @@ wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
 # Galera Cluster Configuration
 wsrep_cluster_name="{{ wsrep_cluster_name }}"
-wsrep_cluster_address="gcomm://{% for server in groups.galeracluster %}{{ server}},{% endfor %}"
+wsrep_cluster_address="gcomm://{% for server in groups.galeracluster %}{{ server }}{{ ',' if not loop.last }}{% endfor %}"
 
 # Galera Synchronization Configuration
 wsrep_sst_method=rsync
