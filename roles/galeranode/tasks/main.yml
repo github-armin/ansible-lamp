@@ -2,29 +2,55 @@
 # tasks file for galeranode
 
 - name: Adding an apt key by id from a keyserver
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 44B7345738EBDE52594DAD80D669017EBC19DDBA
+  command: "sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8"
 
 - name: Updating APT package manager repositories cache
   become: true
   apt:
     update_cache: yes
 
-- name: Adding galera apt repository:
-    apt_repository:
-      repo: "deb [arch=amd64,i386] http://releases.galeracluster.com/ubuntu/ xenial main"
-      state: present
+- name: Adding MariaDB apt repository
+  command: "sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/10.1/ubuntu xenial main'"
 
 - name: Updating APT package manager repositories cache
   become: true
   apt:
     update_cache: yes
 
-- name: Install Galera, MySQL, and rsync
+- name: Install MariaDB and rsync
   apt: name={{ item }} state=present update_cache=yes
   with_items:
-    - galera-3
-    - galera-arbitrator-3
-    - mysql-wsrep-5.6
+    - mariadb-server
     - rsync
+
+- name: Comment out bind address in MySQL config
+  replace:
+    dest: /etc/mysql/my.cnf
+    regexp: '^bind-address*'
+    replace: '# bind-address*'
+
+- name: Enable all ports
+  ufw:
+    state: enabled
+    policy: allow
+
+- name: Add ips of Galera Nodes to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ item.ip }} {{ item.name }}"
+  with_items: "{{ galeranodes }}"
+  state: present
+
+- name: Configure Galera
+  template:
+    src: galera.cnf.j2
+    dest: /etc/mysql/conf.d/galera.cnf
+  with_items: "{{ galeranodes }}"
+
+- name: Stop MySQL service
+  service:
+    name: mysql
+    state: stopped
+
+# - name: Start first Galera Node
+#   command: sudo galera_new_cluster

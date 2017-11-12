@@ -1,2 +1,11 @@
 ---
 # defaults file for galeranode
+wsrep_cluster_name: galera_cluster
+
+galeranodes:
+  - name: galeranode1
+    ip: do.galeranode1
+  - name: galeranode2
+    ip: do.galeranode2
+  - name: galeranode2
+    ip: do.galeranode2

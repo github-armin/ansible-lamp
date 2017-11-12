@@ -3,4 +3,5 @@
 - hosts: webloadbalancer
   become: true
   roles:
+    - apt
     - nginxweb

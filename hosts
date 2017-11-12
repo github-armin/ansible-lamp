@@ -1,6 +1,5 @@
 [webservers]
-do.webserver1 ansible_user=root
-do.webserver2 ansible_user=root
+do.webserver[1:2] ansible_user=root
 
 [webloadbalancer]
 do.weblb ansible_user=root
@@ -9,6 +8,4 @@ do.weblb ansible_user=root
 do.galeralb ansible_user=root
 
 [galeracluster]
-do.galeranode1 ansible_user=root
-do.galeranode2 ansible_user=root
-do.galeranode3 ansible_user=root
+do.galeranode[1:3] ansible_user=root

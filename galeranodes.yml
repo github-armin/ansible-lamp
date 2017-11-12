@@ -1,7 +1,7 @@
 # apache.yml
 ---
-- hosts: galeraloadbalancer
+- hosts: galeracluster
   become: true
   roles:
     - apt
-    - nginxlbgalera
+    - galeranode
