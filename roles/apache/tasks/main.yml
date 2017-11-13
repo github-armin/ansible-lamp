@@ -69,3 +69,9 @@
     state: absent
   notify: restart apache
   when: disable_default_vhost
+
+- name: Add ip of Galera load balancer to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "104.131.145.148 do.galeralb"
+  state: present

@@ -68,10 +68,14 @@
     state: started
   when: inventory_hostname != "do.galeranode3"
 
+- name: Install Python MySQL library
+  apt: name=python-mysqldb state=present update_cache=yes
+
 - name: Add haproxy mysql user
   mysql_user:
     name: "{{ haproxy_user }}"
     password: "{{ haproxy_pass }}"
     priv: "*.*:ALL"
     state: present
+    host: "{{ haproxy_host }}"
   when: inventory_hostname == "do.galeranode3"

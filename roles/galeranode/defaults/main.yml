@@ -13,5 +13,6 @@ galeranodes:
     hostname: do.galeranode3
     ip: 104.131.136.179
 
-haproxy_user: "haproxy@'%'"
+haproxy_user: "haproxy"
 haproxy_pass: "haproxy"
+haproxy_host: "%"

@@ -5,7 +5,7 @@
 
 - name: Configure haproxy
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0644
-  notify: restart nginx
+  notify: restart haproxy
 
 - name: "Add hostnames to /etc/hosts"
   lineinfile:
@@ -13,7 +13,10 @@
     line: "{{ item.ip }} {{ item.hostname }}"
     state: present
   with_items: "{{ galeraservers }}"
-  notify: restart nginx
+  notify: restart haproxy
+
+- name: Install Python MySQL library
+  apt: name=python-mysqldb state=present update_cache=yes
 
 - name: Add haproxy mysql user
   mysql_user:
@@ -21,8 +24,4 @@
     password: "{{ haproxy_pass }}"
     priv: "*.*:ALL"
     state: present
-
-- name: Start haproxy service
-  service:
-    name: haproxy
-    state: started
+    host: "{{ haproxy_host }}"

@@ -1,6 +1,6 @@
 ---
 # defaults file for haproxy
-galeranodes:
+galeraservers:
   - name: galeranode1
     hostname: do.galeranode1
     ip: 107.170.223.121
@@ -11,5 +11,6 @@ galeranodes:
     hostname: do.galeranode3
     ip: 104.131.136.179
 
-haproxy_user: "haproxy@'%'"
+haproxy_user: "haproxy"
 haproxy_pass: "haproxy"
+haproxy_host: "%"
