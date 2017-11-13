@@ -4,4 +4,4 @@
   become: true
   roles:
     - apt
-    - nginxlbgalera
+    - haproxy

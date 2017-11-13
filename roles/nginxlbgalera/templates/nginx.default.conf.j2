@@ -1,0 +1,13 @@
+upstream galeracluster {
+    {{ loadbalance_method }};
+  {% for server in groups.galeracluster %}
+    server {{ server }}:3306;
+  {% endfor %}
+}
+
+server {
+  listen 3306;
+  location / {
+    proxy_pass galeracluster;
+  }
+}

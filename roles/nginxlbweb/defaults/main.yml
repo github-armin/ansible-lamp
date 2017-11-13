@@ -1,5 +1,5 @@
 ---
-# defaults file for nginx
+# defaults file for nginxlbweb
 webservers:
   - ip: "104.131.133.21"
     hostname: "do.webserver1"

@@ -1,5 +1,5 @@
 ---
-# defaults file for nginx
+# defaults file for nginxlbgalera
 galeraservers:
   - ip: "107.170.223.121"
     hostname: "do.galeranode1"
@@ -7,6 +7,8 @@ galeraservers:
     hostname: "do.galeranode2"
   - ip: "104.131.136.179"
     hostname: "do.galeranode3"
+
+loadbalance_method: "least_conn"
 
 # sites:
 #   example1:

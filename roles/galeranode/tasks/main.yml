@@ -67,3 +67,11 @@
     name: mysql
     state: started
   when: inventory_hostname != "do.galeranode3"
+
+- name: Add haproxy mysql user
+  mysql_user:
+    name: "{{ haproxy_user }}"
+    password: "{{ haproxy_pass }}"
+    priv: "*.*:ALL"
+    state: present
+  when: inventory_hostname == "do.galeranode3"

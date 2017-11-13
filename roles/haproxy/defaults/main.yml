@@ -1,7 +1,5 @@
 ---
-# defaults file for galeranode
-wsrep_cluster_name: galera_cluster
-
+# defaults file for haproxy
 galeranodes:
   - name: galeranode1
     hostname: do.galeranode1

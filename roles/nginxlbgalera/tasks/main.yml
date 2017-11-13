@@ -1,6 +1,6 @@
 ---
 # tasks file for nginx
-- name: install tools
+- name: Install tools
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - python-httplib2
@@ -8,30 +8,32 @@
 - name: install nginx
   apt: name=nginx state=present update_cache=yes
 
-- name: ensure nginx is running
+- name: Ensure nginx is running
   service: name=nginx state=started enabled=yes
 
-- name: configure nginx sites
-  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ item.value.server_name }} mode=0644
-  with_dict: "{{ sites }}"
+- name: Configure nginx sites
+  template: src=nginx.default.conf.j2 dest=/etc/nginx/sites-available/default mode=0644
   notify: restart nginx
 
-- name: get active sites
+- name: Get active sites
   shell: ls -1 /etc/nginx/sites-enabled
   register: active
 
-- name: deactivate all nginx sites
-  file: path=/etc/nginx/sites-enabled/{{ item }} state=absent
-  with_items: "{{ active.stdout_lines }}"
-  when: item not in sites
-  notify: restart nginx
-
-- name: activate enabled nginx sites
+- name: Deactivate all nginx sites
   file:
-    src: /etc/nginx/sites-available/{{ item.value.server_name }}
-    dest: /etc/nginx/sites-enabled/{{ item.value.server_name }}
+    path: /etc/nginx/sites-enabled/
+    state: absent
+
+- name: Recreate sites-enabled directory
+  file:
+    path: /etc/nginx/sites-enabled/
+    state: directory
+
+- name: Activate default nginx site
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
     state: link
-  with_dict: "{{ sites }}"
   notify: restart nginx
 
 - name: "Add hostnames to /etc/hosts"
@@ -39,7 +41,7 @@
     dest: /etc/hosts
     line: "{{ item.ip }} {{ item.hostname }}"
     state: present
-    with_items: "{{ galeraservers }}"
+  with_items: "{{ galeraservers }}"
   notify: restart nginx
 
 - name: Modify nginx config

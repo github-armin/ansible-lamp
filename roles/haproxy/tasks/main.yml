@@ -1,0 +1,28 @@
+---
+# tasks file for haproxy
+- name: Install haproxy
+  apt: name=haproxy state=present update_cache=yes
+
+- name: Configure haproxy
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0644
+  notify: restart nginx
+
+- name: "Add hostnames to /etc/hosts"
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item.ip }} {{ item.hostname }}"
+    state: present
+  with_items: "{{ galeraservers }}"
+  notify: restart nginx
+
+- name: Add haproxy mysql user
+  mysql_user:
+    name: "{{ haproxy_user }}"
+    password: "{{ haproxy_pass }}"
+    priv: "*.*:ALL"
+    state: present
+
+- name: Start haproxy service
+  service:
+    name: haproxy
+    state: started

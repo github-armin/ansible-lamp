@@ -1,0 +1,9 @@
+# Load Balancing for Galera Cluster
+listen galera {{ inventory_hostname }}:3306
+     balance source
+     mode tcp
+     option tcpka
+     option mysql-check user {{ haproxy_user }}
+     {% for node in galeranodes %}
+       server {{ node.name }} {{ node.ip }}:3306 check weight 1
+     {% endfor %}
