@@ -3,6 +3,9 @@
 - name: Install haproxy
   apt: name=haproxy state=present update_cache=yes
 
+- name: Install mysql
+  apt: name=mysql-client state=present update_cache=yes
+
 - name: Configure haproxy
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0644
   notify: restart haproxy
